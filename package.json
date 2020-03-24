@@ -1,0 +1,23 @@
+{
+  "name": "sql-homework",
+  "version": "1.0.0",
+  "description": "mysql-homework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebigdeal916/sql-homework.git"
+  },
+  "author": "Nick Adams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebigdeal916/sql-homework/issues"
+  },
+  "homepage": "https://github.com/thebigdeal916/sql-homework#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}
