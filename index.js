@@ -21,8 +21,83 @@ const connection = mysql.createConnection({
 connection.connect(function(err){
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    createRole()
+    runSearch()
 })
+
+function runSearch(){
+    inquirer.prompt({
+        name: "action",
+        type: "list",
+        message: "what would you like to do?",
+        choices: [
+            "input new role",
+            "update role",
+            "delete role",
+            "read roles",
+            "input new department",
+            "update department",
+            "delete department",
+            "read departments",
+            "input new employee",
+            "update employee",
+            "delete employee",
+            "read employees",
+            "exit"
+        ]
+    }).then(function(answer){
+        switch (answer.action){
+            case "input new role":
+                createRole()
+                break
+
+            case "update role":
+                updateRole()
+                break
+
+            case "delete role":
+                deleteRole()
+                break
+
+            case "read roles":
+                readRoles()
+                break
+
+            case "input new department": 
+                createDepartment()
+                break
+
+            case "update department":
+                updateDepartment()
+                break
+
+            case "delete department":
+                 deleteDepartment()
+
+            case "read departments":
+                 readDepartments()
+                 break
+
+            case "input new employee":
+                createEmployee()
+                break
+
+            case "update employee":
+                updateEmployee()
+                break
+
+            case "delete employee":
+                deleteEmployee()
+                break
+
+            case "read employees":
+                reademployees()
+                break
+
+            case "exit":
+            connection.end()
+        }
+    })
+}
 function createRole() {
     console.log("creating a new role...\n");
     let query = connection.query(
@@ -103,15 +178,16 @@ function readRoles(){
     connection.query("SELECT * FROM role", function(err, res){
         if (err) throw err;
         console.log(res);
-        createDepartment()
+        connection.end()
         
     })
 }
 
+
 function createDepartment() {
     console.log("creating a new department...\n");
     let query = connection.query(
-        "INSERT INTO role SET ?",
+        "INSERT INTO department SET ?",
        function promptUser(){
            return inquirer.prompt([
            {
@@ -123,27 +199,31 @@ function createDepartment() {
                type: "input",
                name: "name",
                message: "input department name"
-           } 
+           }
+          
+           
         ])
     
        },
         function(err,res){
             if (err) throw err;
-            console.log(res.affectedRows + "role inserted!\n");
+            console.log(res.affectedRows + "department inserted!\n");
             updateDepartment()
         }
     );
     console.log(query.sql)  
 }
 function updateDepartment(){
-    console.log("updating intern role!...\n");
+    console.log("updating department!...\n");
     let query = connection.query(
         "UPDATE department SET ? WHERE ?",
         [
             {
-                name: "hr"
+                department_id: 500,
+            },
+            {
+                name: "something"
             }
-           
         ],
         function(err, res){
             if (err) throw err;
@@ -154,7 +234,7 @@ function updateDepartment(){
     console.log(query.sql);
 }
 function deleteDepartment() {
-    console.log("deleteing all departments.../n");
+    console.log("deleteing all roles supervisor.../n");
     connection.query(
         "DELETE FROM department WHERE ?",
         {
@@ -164,18 +244,19 @@ function deleteDepartment() {
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles deleted!\n")
-            readDepartment()
+            readDepartments()
         }
     );
 }
 
 
-function readDepartment(){
-    console.log("selecting all roles!...\n")
+function readDepartments(){
+    console.log("selecting all departments!...\n")
     connection.query("SELECT * FROM department", function(err, res){
         if (err) throw err;
         console.log(res);
-        createEmployee()
+        connection.end()
+        
     })
 }
 
@@ -208,7 +289,7 @@ function createEmployee() {
            {
                type: "input",
                name: "manager_id",
-               message:"input manager id",
+               message: "input manager id"
            },
            {
                type: "input",
@@ -230,12 +311,14 @@ function createEmployee() {
 function updateEmployee(){
     console.log("updating employee!...\n");
     let query = connection.query(
-        "UPDATE employee SET ? WHERE ?",
+        "UPDATE empoloyee SET ? WHERE ?",
         [
             {
-                name: "",
+                salary: 500,
+            },
+            {
+                title: "web dev"
             }
-          
         ],
         function(err, res){
             if (err) throw err;
@@ -246,7 +329,7 @@ function updateEmployee(){
     console.log(query.sql);
 }
 function deleteEmployee() {
-    console.log("deleteing all employees.../n");
+    console.log("deleteing employees .../n");
     connection.query(
         "DELETE FROM employee WHERE ?",
         {
@@ -256,28 +339,21 @@ function deleteEmployee() {
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles deleted!\n")
-            readEmployee()
+            reademployees()
         }
     );
 }
 
 
-function readEmployee(){
+function reademployees(){
     console.log("selecting all employees!...\n")
     connection.query("SELECT * FROM employee", function(err, res){
         if (err) throw err;
         console.log(res);
         connection.end()
+        
     })
 }
-
-
-
-
-
-
-
-
 
 app.listen(port, function(){
     console.log("app listening on port " + port)
