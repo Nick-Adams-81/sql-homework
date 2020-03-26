@@ -131,7 +131,7 @@ function createRole() {
         function(err,res){
             if (err) throw err;
             console.log(res.affectedRows + "role inserted!\n");
-            updateRole()
+            connection.end()
         }
     );
     console.log(query.sql)  
@@ -151,7 +151,7 @@ function updateRole(){
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles updated!\n")
-            deleteRole()
+            
         }
     );
     console.log(query.sql);
@@ -167,7 +167,7 @@ function deleteRole() {
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles deleted!\n")
-            readRoles()
+            
         }
     );
 }
@@ -208,7 +208,7 @@ function createDepartment() {
         function(err,res){
             if (err) throw err;
             console.log(res.affectedRows + "department inserted!\n");
-            updateDepartment()
+        
         }
     );
     console.log(query.sql)  
@@ -228,7 +228,7 @@ function updateDepartment(){
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles updated!\n")
-            deleteDepartment()
+            
         }
     );
     console.log(query.sql);
@@ -244,7 +244,7 @@ function deleteDepartment() {
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles deleted!\n")
-            readDepartments()
+            
         }
     );
 }
@@ -303,7 +303,7 @@ function createEmployee() {
         function(err,res){
             if (err) throw err;
             console.log(res.affectedRows + "role inserted!\n");
-            updateEmployee()
+            
         }
     );
     console.log(query.sql)  
@@ -323,7 +323,7 @@ function updateEmployee(){
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles updated!\n")
-            deleteEmployee()
+            
         }
     );
     console.log(query.sql);
@@ -339,7 +339,7 @@ function deleteEmployee() {
         function(err, res){
             if (err) throw err;
             console.log(res.affectedRows + "roles deleted!\n")
-            reademployees()
+            
         }
     );
 }
